@@ -27,7 +27,7 @@
             box-sizing: border-box;
         }
 
-        /* POPRAWKA MOBILNA: Stabilne tło, które nie rozciąga się i nie zmniejsza */
+        /* Stabilne tło, które nie rozciąga się i nie zmniejsza */
         body::before {
             content: "";
             position: fixed;
@@ -192,7 +192,6 @@
             user-select: none;
         }
 
-        /* Delikatne powiększenie o 7% podczas kliknięcia na kaczkę lub głośnik */
         .duck-card:active {
             transform: scale(1.07);
         }
@@ -239,7 +238,7 @@
             border: 4px solid var(--pink-accent);
             display: inline-block;
             width: 100%;
-            max-width: 450px;
+            max-width: 550px; 
             box-shadow: 0 8px 20px rgba(0,0,0,0.05);
             box-sizing: border-box;
         }
@@ -251,14 +250,17 @@
             font-size: 18px;
         }
 
+        /* Kontener na okienka - brak zawijania i brak scrolla na komputerze */
         .inputs-container {
             display: flex;
             gap: 10px;
             justify-content: center;
             margin-bottom: 25px;
-            flex-wrap: wrap; /* W razie bardzo małych ekranów okienka przejdą do nowej linii */
+            flex-wrap: nowrap; 
+            padding: 5px;
         }
 
+        /* Domyślne wymiary na komputerze */
         .note-input {
             width: 45px;
             height: 50px;
@@ -270,6 +272,7 @@
             background-color: var(--blue-bg);
             color: var(--blue-dark);
             outline: none;
+            flex-shrink: 0; 
         }
 
         .note-input:focus {
@@ -377,18 +380,18 @@
             text-align: left;
         }
 
-        /* RESPONSYWNOŚĆ: Dopasowanie elementów na smartfonach */
+        /* RESPONSYWNOŚĆ: Zmiana wymiarów na elastyczne (vw), by wszystko idealnie pasowało na styk */
         @media (max-width: 768px) {
             body {
                 padding: 10px;
             }
             .ducks-wrapper {
                 gap: 10px;
-                justify-content: flex-start; /* Pozwala na płynne przesuwanie palcem na boki, jeśli ekran jest za mały */
+                justify-content: flex-start; 
                 padding-bottom: 15px;
             }
             .duck-card {
-                width: 75px; /* Delikatnie mniejsze karty */
+                width: 75px; 
             }
             .duck-img {
                 width: 65px;
@@ -402,10 +405,22 @@
                 width: 18px;
                 height: 18px;
             }
+            
+            /* KLUCZOWA POPRAWKA MOBILNA */
+            .answer-section {
+                padding: 20px 15px;
+            }
+            .inputs-container {
+                gap: 1.5vw; /* Elastyczny odstęp między okienkami */
+                justify-content: center;
+                overflow-x: hidden; /* Blokada bocznego suwaka strony */
+            }
             .note-input {
-                width: 35px;
-                height: 42px;
-                font-size: 18px;
+                width: 8.5vw;  /* Dokładny dobór szerokości, by 9 sztuk zajęło ok. 76% szerokości ekranu */
+                height: 11vw;  /* Proporcjonalna wysokość */
+                font-size: 4.5vw; /* Elastyczna wielkość czcionki wewnątrz */
+                border: 2px solid var(--blue-accent);
+                border-radius: 6px;
             }
             #status-bar {
                 font-size: 15px;
@@ -587,11 +602,10 @@
             mainGain.connect(audioCtx.destination);
         }
 
-        // Dźwięk triumfu generowany syntezatorem (szybki arpeggio akord dur)
         function playTriumphSound() {
             initAudio();
             const now = audioCtx.currentTime;
-            const notes = [261.63, 329.63, 392.00, 523.25]; // C4, E4, G4, C5
+            const notes = [261.63, 329.63, 392.00, 523.25]; 
             
             notes.forEach((freq, index) => {
                 const osc = audioCtx.createOscillator();
@@ -610,11 +624,10 @@
             });
         }
 
-        // Dźwięk porażki "łełełe" (opadające, chropowate dźwięki)
         function playFailureSound() {
             initAudio();
             const now = audioCtx.currentTime;
-            const steps = [220.00, 196.00, 174.61, 146.83]; // Opadające tony A3, G3, F3, D3
+            const steps = [220.00, 196.00, 174.61, 146.83]; 
             
             steps.forEach((freq, index) => {
                 const osc = audioCtx.createOscillator();
