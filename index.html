@@ -27,7 +27,6 @@
             box-sizing: border-box;
         }
 
-        /* Stabilne tło, które nie rozciąga się i nie zmniejsza */
         body::before {
             content: "";
             position: fixed;
@@ -42,7 +41,6 @@
             background-repeat: no-repeat;
         }
 
-        /* Ramka danych użytkownika */
         #auth-panel {
             background: rgba(255, 255, 255, 0.95);
             border: 4px solid var(--pink-accent);
@@ -90,7 +88,6 @@
             border-color: var(--pink-dark);
         }
 
-        /* Pasek statusu (Imię, Nazwisko, Timer) */
         #status-bar {
             display: none;
             background: rgba(255, 255, 255, 0.9);
@@ -109,7 +106,6 @@
             box-sizing: border-box;
         }
 
-        /* Główny kontener gry */
         #game-container {
             display: none;
             width: 100%;
@@ -117,7 +113,6 @@
             text-align: center;
         }
 
-        /* Kontenery na przyciski sterujące audio */
         .controls-wrapper {
             display: inline-flex;
             gap: 15px;
@@ -148,28 +143,13 @@
             transform: scale(1.1);
         }
 
-        #play-pause-button {
-            background-color: var(--blue-accent);
-        }
-        #play-pause-button:hover {
-            background-color: var(--blue-dark);
-        }
+        #play-pause-button { background-color: var(--blue-accent); }
+        #play-pause-button:hover { background-color: var(--blue-dark); }
+        #stop-button { background-color: var(--pink-accent); }
+        #stop-button:hover { background-color: var(--pink-dark); }
 
-        #stop-button {
-            background-color: var(--pink-accent);
-        }
-        #stop-button:hover {
-            background-color: var(--pink-dark);
-        }
+        .control-btn svg { width: 24px; height: 24px; fill: white; }
 
-        /* Ikony SVG w przyciskach sterowania */
-        .control-btn svg {
-            width: 24px;
-            height: 24px;
-            fill: white;
-        }
-
-        /* Sekcja Kaczek ułożonych poziomo */
         .ducks-wrapper {
             display: flex;
             justify-content: center;
@@ -180,7 +160,6 @@
             padding: 10px;
         }
 
-        /* Efekt powiększania dla całej karty kaczki */
         .duck-card {
             display: flex;
             flex-direction: column;
@@ -192,19 +171,10 @@
             user-select: none;
         }
 
-        .duck-card:active {
-            transform: scale(1.07);
-        }
+        .duck-card:active { transform: scale(1.07); }
 
-        .duck-img {
-            width: 90px;
-            height: 90px;
-            object-fit: contain;
-            user-select: none;
-            -webkit-user-drag: none;
-        }
+        .duck-img { width: 90px; height: 90px; object-fit: contain; user-select: none; -webkit-user-drag: none; }
 
-        /* Przycisk głośniczka pod kaczką */
         .speaker-btn {
             background-color: var(--pink-accent);
             border: none;
@@ -220,17 +190,9 @@
             pointer-events: none; 
         }
 
-        .duck-card:hover .speaker-btn {
-            background-color: var(--pink-dark);
-        }
+        .duck-card:hover .speaker-btn { background-color: var(--pink-dark); }
+        .speaker-btn svg { width: 22px; height: 22px; fill: white; }
 
-        .speaker-btn svg {
-            width: 22px;
-            height: 22px;
-            fill: white;
-        }
-
-        /* Sekcja odpowiedzi */
         .answer-section {
             background: rgba(255, 255, 255, 0.9);
             padding: 30px;
@@ -238,194 +200,58 @@
             border: 4px solid var(--pink-accent);
             display: inline-block;
             width: 100%;
-            max-width: 550px; 
+            max-width: 500px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.05);
             box-sizing: border-box;
         }
 
-        .answer-section h3 {
-            margin-top: 0;
-            color: var(--pink-dark);
-            margin-bottom: 20px;
-            font-size: 18px;
-        }
+        .answer-section h3 { margin-top: 0; color: var(--pink-dark); margin-bottom: 20px; font-size: 18px; }
 
-        /* Kontener na okienka - brak zawijania i brak scrolla na komputerze */
         .inputs-container {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             justify-content: center;
+            align-items: center;
             margin-bottom: 25px;
             flex-wrap: nowrap; 
-            padding: 5px;
         }
 
-        /* Domyślne wymiary na komputerze */
+        /* NAPRAWIONE OKIENKA */
         .note-input {
-            width: 45px;
-            height: 50px;
+            width: 38px !important;
+            height: 38px !important;
+            padding: 0 !important;
             text-align: center;
-            font-size: 22px;
+            font-size: 18px;
             font-weight: bold;
             border: 3px solid var(--blue-accent);
             border-radius: 10px;
             background-color: var(--blue-bg);
             color: var(--blue-dark);
             outline: none;
-            flex-shrink: 0; 
+            box-sizing: border-box;
+            flex-shrink: 0;
+            line-height: 38px;
         }
 
-        .note-input:focus {
-            border-color: var(--pink-dark);
-        }
+        .note-input:focus { border-color: var(--pink-dark); }
 
-        /* Przyciski ogólne */
-        .btn {
-            padding: 12px 30px;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: transform 0.1s, background-color 0.2s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
+        .btn { padding: 12px 30px; font-size: 16px; font-weight: bold; border: none; border-radius: 12px; cursor: pointer; transition: transform 0.1s, background-color 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .btn:active { transform: scale(0.98); }
+        .btn-start { background-color: var(--pink-dark); color: white; width: 100%; }
+        .btn-check { background-color: var(--blue-accent); color: white; }
+        .btn-modal { background-color: var(--pink-dark); color: white; margin-top: 15px; }
 
-        .btn:active {
-            transform: scale(0.98);
-        }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 30px; border-radius: 20px; text-align: center; max-width: 400px; width: 85%; box-shadow: 0 15px 30px rgba(0,0,0,0.2); }
+        .modal-success { border: 5px solid var(--blue-accent); }
+        .modal-error { border: 5px solid var(--pink-accent); }
+        .summary-info { background-color: var(--blue-bg); border-radius: 10px; padding: 12px; margin: 15px 0; font-weight: bold; color: var(--blue-dark); text-align: left; }
 
-        .btn-start {
-            background-color: var(--pink-dark);
-            color: white;
-            width: 100%;
-        }
-
-        .btn-start:hover {
-            background-color: #FA6B8E;
-        }
-
-        .btn-check {
-            background-color: var(--blue-accent);
-            color: white;
-        }
-
-        .btn-check:hover {
-            background-color: var(--blue-dark);
-        }
-
-        .btn-modal {
-            background-color: var(--pink-dark);
-            color: white;
-            margin-top: 15px;
-        }
-
-        .btn-modal:hover {
-            background-color: #FA6B8E;
-        }
-
-        /* Style dla Modali */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.4);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            text-align: center;
-            max-width: 400px;
-            width: 85%;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        }
-
-        .modal-success {
-            border: 5px solid var(--blue-accent);
-        }
-
-        .modal-error {
-            border: 5px solid var(--pink-accent);
-        }
-
-        .modal-content h2 {
-            margin-top: 0;
-            font-size: 26px;
-        }
-
-        .modal-success h2 { color: var(--blue-dark); }
-        .modal-error h2 { color: var(--pink-dark); }
-
-        .modal-content p {
-            font-size: 16px;
-            line-height: 1.5;
-            color: #555;
-        }
-
-        .summary-info {
-            background-color: var(--blue-bg);
-            border-radius: 10px;
-            padding: 12px;
-            margin: 15px 0;
-            font-weight: bold;
-            color: var(--blue-dark);
-            text-align: left;
-        }
-
-        /* RESPONSYWNOŚĆ: Zmiana wymiarów na elastyczne (vw), by wszystko idealnie pasowało na styk */
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-            .ducks-wrapper {
-                gap: 10px;
-                justify-content: flex-start; 
-                padding-bottom: 15px;
-            }
-            .duck-card {
-                width: 75px; 
-            }
-            .duck-img {
-                width: 65px;
-                height: 65px;
-            }
-            .speaker-btn {
-                width: 36px;
-                height: 36px;
-            }
-            .speaker-btn svg {
-                width: 18px;
-                height: 18px;
-            }
-            
-            /* KLUCZOWA POPRAWKA MOBILNA */
-            .answer-section {
-                padding: 20px 15px;
-            }
-            .inputs-container {
-                gap: 1.5vw; /* Elastyczny odstęp między okienkami */
-                justify-content: center;
-                overflow-x: hidden; /* Blokada bocznego suwaka strony */
-            }
-            .note-input {
-                width: 8.5vw;  /* Dokładny dobór szerokości, by 9 sztuk zajęło ok. 76% szerokości ekranu */
-                height: 11vw;  /* Proporcjonalna wysokość */
-                font-size: 4.5vw; /* Elastyczna wielkość czcionki wewnątrz */
-                border: 2px solid var(--blue-accent);
-                border-radius: 6px;
-            }
-            #status-bar {
-                font-size: 15px;
-                padding: 10px 15px;
-            }
+            .note-input { width: 32px !important; height: 32px !important; font-size: 16px; line-height: 32px; border: 2px solid var(--blue-accent); border-radius: 8px; }
+            .answer-section { padding: 20px 10px; max-width: 100%; }
+            .inputs-container { gap: 4px; }
         }
     </style>
 </head>
@@ -435,8 +261,7 @@
         <div class="modal-content modal-success">
             <h2>brawo!</h2>
             <p>prześlij ss do prowadzących</p>
-            <div class="summary-info" id="success-summary">
-                </div>
+            <div class="summary-info" id="success-summary"></div>
         </div>
     </div>
 
@@ -463,403 +288,69 @@
     </div>
 
     <div id="game-container">
-        
         <div class="controls-wrapper">
             <button id="play-pause-button" class="control-btn" onclick="togglePlayPause()" title="Odtwórz / Pauza">
                 <svg id="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                 <svg id="icon-pause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
             </button>
-            
             <button id="stop-button" class="control-btn" onclick="stopMelody()" title="Zatrzymaj i zresetuj">
                 <svg viewBox="0 0 24 24"><path d="M6 6h12v12H6z"/></svg>
             </button>
         </div>
 
         <div class="ducks-wrapper">
-            <div class="duck-card" onclick="playDuckSound(1)">
-                <img src="kaczka.png" alt="Kaczka" class="duck-img">
-                <button class="speaker-btn" title="Słuchaj">
-                    <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-                </button>
-            </div>
-            <div class="duck-card" onclick="playDuckSound(2)">
-                <img src="kaczka.png" alt="Kaczka" class="duck-img">
-                <button class="speaker-btn" title="Słuchaj">
-                    <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-                </button>
-            </div>
-            <div class="duck-card" onclick="playDuckSound(3)">
-                <img src="kaczka.png" alt="Kaczka" class="duck-img">
-                <button class="speaker-btn" title="Słuchaj">
-                    <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-                </button>
-            </div>
-            <div class="duck-card" onclick="playDuckSound(4)">
-                <img src="kaczka.png" alt="Kaczka" class="duck-img">
-                <button class="speaker-btn" title="Słuchaj">
-                    <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-                </button>
-            </div>
-            <div class="duck-card" onclick="playDuckSound(5)">
-                <img src="kaczka.png" alt="Kaczka" class="duck-img">
-                <button class="speaker-btn" title="Słuchaj">
-                    <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-                </button>
-            </div>
-            <div class="duck-card" onclick="playDuckSound(6)">
-                <img src="kaczka.png" alt="Kaczka" class="duck-img">
-                <button class="speaker-btn" title="Słuchaj">
-                    <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-                </button>
-            </div>
-            <div class="duck-card" onclick="playDuckSound(7)">
-                <img src="kaczka.png" alt="Kaczka" class="duck-img">
-                <button class="speaker-btn" title="Słuchaj">
-                    <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-                </button>
-            </div>
+            <div class="duck-card" onclick="playDuckSound(1)"><img src="kaczka.png" class="duck-img"><button class="speaker-btn"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button></div>
+            <div class="duck-card" onclick="playDuckSound(2)"><img src="kaczka.png" class="duck-img"><button class="speaker-btn"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button></div>
+            <div class="duck-card" onclick="playDuckSound(3)"><img src="kaczka.png" class="duck-img"><button class="speaker-btn"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button></div>
+            <div class="duck-card" onclick="playDuckSound(4)"><img src="kaczka.png" class="duck-img"><button class="speaker-btn"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button></div>
+            <div class="duck-card" onclick="playDuckSound(5)"><img src="kaczka.png" class="duck-img"><button class="speaker-btn"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button></div>
+            <div class="duck-card" onclick="playDuckSound(6)"><img src="kaczka.png" class="duck-img"><button class="speaker-btn"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button></div>
+            <div class="duck-card" onclick="playDuckSound(7)"><img src="kaczka.png" class="duck-img"><button class="speaker-btn"><svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg></button></div>
         </div>
 
         <div class="answer-section">
             <h3>wpisz poprawną kolejność usłyszanej melodii:</h3>
-            <div class="inputs-container" id="inputs-container">
-                </div>
-            
+            <div class="inputs-container" id="inputs-container"></div>
             <button class="btn btn-check" onclick="checkAnswer()">sprawdź</button>
         </div>
-
     </div>
 
     <script>
-        const frequencies = {
-            1: 261.63, // C4
-            2: 293.66, // D4
-            3: 329.63, // E4
-            4: 349.23, // F4
-            5: 392.00, // G4
-            6: 440.00, // A4
-            7: 493.88  // B4
-        };
+        const frequencies = { 1: 261.63, 2: 293.66, 3: 329.63, 4: 349.23, 5: 392.00, 6: 440.00, 7: 493.88 };
+        let audioCtx = null, timerInterval = null, secretMelody = [], finalTimeString = "00:00";
+        let isPlaying = false, isPaused = false, currentNoteIndex = 0, melodyTimeoutId = null, generatedDurations = [];
 
-        let audioCtx = null;
-        let timerInterval = null;
-        let secretMelody = [];
-        let finalTimeString = "00:00";
-
-        let isPlaying = false;       
-        let isPaused = false;        
-        let currentNoteIndex = 0;    
-        let melodyTimeoutId = null;  
-        let generatedDurations = []; 
-
-        function initAudio() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-        }
-
+        function initAudio() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
         function playTrumpetTone(duckNumber, duration = 0.6) {
-            initAudio();
-            if (!frequencies[duckNumber]) return;
-
-            const baseFreq = frequencies[duckNumber];
-            const now = audioCtx.currentTime;
-
+            initAudio(); if (!frequencies[duckNumber]) return;
+            const baseFreq = frequencies[duckNumber], now = audioCtx.currentTime;
             const mainGain = audioCtx.createGain();
-            mainGain.gain.setValueAtTime(0, now);
-            mainGain.gain.linearRampToValueAtTime(0.25, now + 0.08); 
-            mainGain.gain.setValueAtTime(0.25, now + duration - 0.1);
-            mainGain.gain.exponentialRampToValueAtTime(0.001, now + duration);
-
-            const harmonics = [
-                { fMult: 1, gainVal: 1.0 },
-                { fMult: 2, gainVal: 0.6 },
-                { fMult: 3, gainVal: 0.4 },
-                { fMult: 4, gainVal: 0.15 }
-            ];
-
-            harmonics.forEach(h => {
-                const osc = audioCtx.createOscillator();
-                const gNode = audioCtx.createGain();
-                
-                osc.type = 'sawtooth'; 
-                osc.frequency.value = baseFreq * h.fMult;
-                gNode.gain.setValueAtTime(h.gainVal, now);
-                
-                const filter = audioCtx.createBiquadFilter();
-                filter.type = 'lowpass';
-                filter.frequency.setValueAtTime(baseFreq * 3, now);
-                filter.frequency.exponentialRampToValueAtTime(baseFreq * 1.5, now + duration);
-
-                osc.connect(gNode);
-                gNode.connect(filter);
-                filter.connect(mainGain);
-
-                osc.start(now);
-                osc.stop(now + duration);
+            mainGain.gain.setValueAtTime(0, now); mainGain.gain.linearRampToValueAtTime(0.25, now + 0.08);
+            mainGain.gain.setValueAtTime(0.25, now + duration - 0.1); mainGain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+            [1, 2, 3, 4].forEach(h => {
+                const osc = audioCtx.createOscillator(); const gNode = audioCtx.createGain();
+                osc.type = 'sawtooth'; osc.frequency.value = baseFreq * h;
+                gNode.gain.value = [1.0, 0.6, 0.4, 0.15][h-1] * 0.5;
+                osc.connect(gNode); gNode.connect(mainGain); osc.start(now); osc.stop(now + duration);
             });
-
             mainGain.connect(audioCtx.destination);
         }
-
-        function playTriumphSound() {
-            initAudio();
-            const now = audioCtx.currentTime;
-            const notes = [261.63, 329.63, 392.00, 523.25]; 
-            
-            notes.forEach((freq, index) => {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(freq, now + (index * 0.1));
-                
-                gain.gain.setValueAtTime(0, now + (index * 0.1));
-                gain.gain.linearRampToValueAtTime(0.3, now + (index * 0.1) + 0.05);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
-                
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start(now + (index * 0.1));
-                osc.stop(now + 1.2);
-            });
-        }
-
-        function playFailureSound() {
-            initAudio();
-            const now = audioCtx.currentTime;
-            const steps = [220.00, 196.00, 174.61, 146.83]; 
-            
-            steps.forEach((freq, index) => {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'sawtooth';
-                osc.frequency.setValueAtTime(freq, now + (index * 0.25));
-                osc.frequency.linearRampToValueAtTime(freq - 15, now + (index * 0.25) + 0.2);
-                
-                gain.gain.setValueAtTime(0, now + (index * 0.25));
-                gain.gain.linearRampToValueAtTime(0.2, now + (index * 0.25) + 0.05);
-                gain.gain.linearRampToValueAtTime(0.2, now + (index * 0.25) + 0.18);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + (index * 0.25) + 0.23);
-                
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start(now + (index * 0.25));
-                osc.stop(now + (index * 0.25) + 0.24);
-            });
-        }
-
-        function playDuckSound(duckNumber) {
-            if (isPlaying && !isPaused) {
-                togglePlayPause(); 
-            }
-            playTrumpetTone(duckNumber, 0.5); 
-        }
-
-        window.onload = function() {
-            buildInputFields();
-            
-            if (sessionStorage.getItem('game_active') === 'true') {
-                document.getElementById('username').value = sessionStorage.getItem('game_username');
-                
-                if (!sessionStorage.getItem('game_start_time')) {
-                    sessionStorage.setItem('game_start_time', Date.now());
-                }
-                
-                showGameLayout();
-                startTimer();
-                generateNewMelody();
-            }
-        };
-
-        function startGame() {
-            const nameInput = document.getElementById('username').value.trim();
-            if (nameInput === "") {
-                alert("Proszę wpisać imię i nazwisko!");
-                return;
-            }
-
-            sessionStorage.setItem('game_start_time', Date.now());
-            sessionStorage.setItem('game_active', 'true');
-            sessionStorage.setItem('game_username', nameInput);
-            
-            showGameLayout();
-            startTimer();
-            generateNewMelody();
-        }
-
-        function showGameLayout() {
-            document.getElementById('auth-panel').style.display = 'none';
-            document.getElementById('status-bar').style.display = 'flex';
-            document.getElementById('game-container').style.display = 'block';
-            document.getElementById('display-identity').innerText = "Gracz: " + sessionStorage.getItem('game_username');
-        }
-
-        function startTimer() {
-            if(timerInterval) clearInterval(timerInterval);
-            const startTime = parseInt(sessionStorage.getItem('game_start_time'));
-
-            timerInterval = setInterval(() => {
-                const elapsedMs = Date.now() - startTime;
-                const totalSeconds = Math.floor(elapsedMs / 1000);
-                
-                const minutes = Math.floor(totalSeconds / 60).toString().padStart(2, '0');
-                const seconds = (totalSeconds % 60).toString().padStart(2, '0');
-                
-                finalTimeString = `${minutes}:${seconds}`;
-                document.getElementById('display-timer').innerText = `Czas: ${finalTimeString}`;
-            }, 1000);
-        }
-
-        function buildInputFields() {
-            const container = document.getElementById('inputs-container');
-            container.innerHTML = '';
-            for (let i = 0; i < 9; i++) {
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.className = 'note-input';
-                input.maxLength = 1;
-                
-                input.oninput = function() {
-                    this.value = this.value.replace(/[^1-7]/g, '');
-                    if (this.value.length === 1 && i < 8) {
-                        container.children[i + 1].focus();
-                    }
-                };
-                container.appendChild(input);
-            }
-        }
-
-        function generateNewMelody() {
-            secretMelody = [];
-            generatedDurations = [];
-            const noteDurations = [0.4, 0.6, 1.2]; 
-
-            for (let i = 0; i < 9; i++) {
-                let nextDuck;
-                while (true) {
-                    nextDuck = Math.floor(Math.random() * 7) + 1;
-                    if (i >= 2 && secretMelody[i - 1] === nextDuck && secretMelody[i - 2] === nextDuck) {
-                        continue; 
-                    }
-                    break; 
-                }
-
-                secretMelody.push(nextDuck);
-                generatedDurations.push(noteDurations[Math.floor(Math.random() * noteDurations.length)]);
-            }
-            currentNoteIndex = 0;
-            resetInterfaceToPlay();
-            console.log("Melodia:", secretMelody);
-        }
-
-        function togglePlayPause() {
-            initAudio();
-            
-            if (!isPlaying) {
-                isPlaying = true;
-                isPaused = false;
-                updatePlayPauseIcons(true); 
-                playNextNote();
-            } else if (isPlaying && !isPaused) {
-                isPaused = true;
-                updatePlayPauseIcons(false); 
-                if (melodyTimeoutId) clearTimeout(melodyTimeoutId);
-            } else if (isPlaying && isPaused) {
-                isPaused = false;
-                updatePlayPauseIcons(true); 
-                playNextNote();
-            }
-        }
-
-        function playNextNote() {
-            if (isPaused || !isPlaying) return;
-
-            if (currentNoteIndex >= secretMelody.length) {
-                stopMelody();
-                return;
-            }
-
-            const duck = secretMelody[currentNoteIndex];
-            const duration = generatedDurations[currentNoteIndex];
-
-            playTrumpetTone(duck, duration);
-            const totalStepTime = (duration * 1000) + 300;
-            currentNoteIndex++;
-
-            melodyTimeoutId = setTimeout(() => {
-                playNextNote();
-            }, totalStepTime);
-        }
-
-        function stopMelody() {
-            if (melodyTimeoutId) clearTimeout(melodyTimeoutId);
-            
-            isPlaying = false;
-            isPaused = false;
-            currentNoteIndex = 0; 
-            
-            resetInterfaceToPlay();
-        }
-
-        function updatePlayPauseIcons(shouldShowPause) {
-            const playIcon = document.getElementById('icon-play');
-            const pauseIcon = document.getElementById('icon-pause');
-            
-            if (shouldShowPause) {
-                playIcon.style.display = 'none';
-                pauseIcon.style.display = 'block';
-            } else {
-                playIcon.style.display = 'block';
-                pauseIcon.style.display = 'none';
-            }
-        }
-
-        function resetInterfaceToPlay() {
-            updatePlayPauseIcons(false);
-        }
-
-        function checkAnswer() {
-            const inputs = document.querySelectorAll('.note-input');
-            let playerAnswer = [];
-
-            for (let input of inputs) {
-                if (input.value === "") {
-                    alert("Wypełnij wszystkie 9 okienek przed sprawdzeniem!");
-                    return;
-                }
-                playerAnswer.push(parseInt(input.value));
-            }
-
-            const isCorrect = playerAnswer.length === secretMelody.length && 
-                              playerAnswer.every((val, index) => val === secretMelody[index]);
-
-            if (isCorrect) {
-                clearInterval(timerInterval); 
-                stopMelody();
-                playTriumphSound(); 
-                
-                const username = sessionStorage.getItem('game_username');
-                document.getElementById('success-summary').innerHTML = `
-                    Gracz: ${username}<br>
-                    Końcowy czas: ${finalTimeString}
-                `;
-                document.getElementById('success-modal').style.display = 'flex';
-            } else {
-                stopMelody();
-                playFailureSound(); 
-                document.getElementById('error-modal').style.display = 'flex';
-            }
-        }
-
-        function closeErrorModalAndRestart() {
-            document.getElementById('error-modal').style.display = 'none';
-            
-            const inputs = document.querySelectorAll('.note-input');
-            inputs.forEach(input => input.value = "");
-            
-            generateNewMelody();
-            togglePlayPause();
-        }
+        function playTriumphSound() { initAudio(); const now = audioCtx.currentTime; [261.63, 329.63, 392.00, 523.25].forEach((f, i) => { const o = audioCtx.createOscillator(); o.type='triangle'; o.frequency.value=f; o.connect(audioCtx.destination); o.start(now + i*0.1); o.stop(now + i*0.1 + 0.3); }); }
+        function playFailureSound() { initAudio(); const now = audioCtx.currentTime; [220.00, 196.00, 174.61, 146.83].forEach((f, i) => { const o = audioCtx.createOscillator(); o.type='sawtooth'; o.frequency.value=f; o.connect(audioCtx.destination); o.start(now + i*0.2); o.stop(now + i*0.2 + 0.2); }); }
+        function playDuckSound(n) { if (isPlaying && !isPaused) togglePlayPause(); playTrumpetTone(n, 0.5); }
+        window.onload = function() { buildInputFields(); if (sessionStorage.getItem('game_active') === 'true') { document.getElementById('username').value = sessionStorage.getItem('game_username'); showGameLayout(); startTimer(); generateNewMelody(); } };
+        function startGame() { const n = document.getElementById('username').value.trim(); if (!n) return alert("Wpisz imię!"); sessionStorage.setItem('game_start_time', Date.now()); sessionStorage.setItem('game_active', 'true'); sessionStorage.setItem('game_username', n); showGameLayout(); startTimer(); generateNewMelody(); }
+        function showGameLayout() { document.getElementById('auth-panel').style.display = 'none'; document.getElementById('status-bar').style.display = 'flex'; document.getElementById('game-container').style.display = 'block'; document.getElementById('display-identity').innerText = "Gracz: " + sessionStorage.getItem('game_username'); }
+        function startTimer() { if(timerInterval) clearInterval(timerInterval); const startTime = parseInt(sessionStorage.getItem('game_start_time')); timerInterval = setInterval(() => { const totalSeconds = Math.floor((Date.now() - startTime) / 1000); finalTimeString = `${Math.floor(totalSeconds/60).toString().padStart(2,'0')}:${(totalSeconds%60).toString().padStart(2,'0')}`; document.getElementById('display-timer').innerText = `Czas: ${finalTimeString}`; }, 1000); }
+        function buildInputFields() { const c = document.getElementById('inputs-container'); c.innerHTML = ''; for (let i = 0; i < 9; i++) { const input = document.createElement('input'); input.type = 'text'; input.className = 'note-input'; input.maxLength = 1; input.oninput = function() { this.value = this.value.replace(/[^1-7]/g, ''); if (this.value.length === 1 && i < 8) c.children[i + 1].focus(); }; c.appendChild(input); } }
+        function generateNewMelody() { secretMelody = []; generatedDurations = []; for (let i = 0; i < 9; i++) { secretMelody.push(Math.floor(Math.random() * 7) + 1); generatedDurations.push(0.6); } currentNoteIndex = 0; resetInterfaceToPlay(); }
+        function togglePlayPause() { initAudio(); if (!isPlaying) { isPlaying = true; isPaused = false; updatePlayPauseIcons(true); playNextNote(); } else if (!isPaused) { isPaused = true; updatePlayPauseIcons(false); clearTimeout(melodyTimeoutId); } else { isPaused = false; updatePlayPauseIcons(true); playNextNote(); } }
+        function playNextNote() { if (isPaused || !isPlaying) return; if (currentNoteIndex >= secretMelody.length) { stopMelody(); return; } playTrumpetTone(secretMelody[currentNoteIndex], generatedDurations[currentNoteIndex]); currentNoteIndex++; melodyTimeoutId = setTimeout(playNextNote, 900); }
+        function stopMelody() { clearTimeout(melodyTimeoutId); isPlaying = false; isPaused = false; currentNoteIndex = 0; resetInterfaceToPlay(); }
+        function updatePlayPauseIcons(p) { document.getElementById('icon-play').style.display = p ? 'none' : 'block'; document.getElementById('icon-pause').style.display = p ? 'block' : 'none'; }
+        function resetInterfaceToPlay() { updatePlayPauseIcons(false); }
+        function checkAnswer() { const ins = document.querySelectorAll('.note-input'); let ans = []; for (let i of ins) { if (!i.value) return alert("Wypełnij wszystko!"); ans.push(parseInt(i.value)); } if (ans.every((v, i) => v === secretMelody[i])) { clearInterval(timerInterval); stopMelody(); playTriumphSound(); document.getElementById('success-summary').innerHTML = `Gracz: ${sessionStorage.getItem('game_username')}<br>Czas: ${finalTimeString}`; document.getElementById('success-modal').style.display = 'flex'; } else { stopMelody(); playFailureSound(); document.getElementById('error-modal').style.display = 'flex'; } }
+        function closeErrorModalAndRestart() { document.getElementById('error-modal').style.display = 'none'; document.querySelectorAll('.note-input').forEach(i => i.value = ""); generateNewMelody(); }
     </script>
 </body>
 </html>
