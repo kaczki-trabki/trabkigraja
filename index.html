@@ -143,8 +143,8 @@
             transform: scale(1.1);
         }
 
-        #play-pause-button { background-color: var(--blue-accent); }
-        #play-pause-button:hover { background-color: var(--blue-dark); }
+        #play-button { background-color: var(--blue-accent); }
+        #play-button:hover { background-color: var(--blue-dark); }
         #stop-button { background-color: var(--pink-accent); }
         #stop-button:hover { background-color: var(--pink-dark); }
 
@@ -216,7 +216,6 @@
             flex-wrap: nowrap; 
         }
 
-        /* NAPRAWIONE OKIENKA */
         .note-input {
             width: 38px !important;
             height: 38px !important;
@@ -289,11 +288,10 @@
 
     <div id="game-container">
         <div class="controls-wrapper">
-            <button id="play-pause-button" class="control-btn" onclick="togglePlayPause()" title="Odtwórz / Pauza">
-                <svg id="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                <svg id="icon-pause" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            <button id="play-button" class="control-btn" onclick="tryPlayMelody()" title="Odtwórz">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
             </button>
-            <button id="stop-button" class="control-btn" onclick="stopMelody()" title="Zatrzymaj i zresetuj">
+            <button id="stop-button" class="control-btn" onclick="stopMelody()" title="Zatrzymaj">
                 <svg viewBox="0 0 24 24"><path d="M6 6h12v12H6z"/></svg>
             </button>
         </div>
@@ -318,7 +316,7 @@
     <script>
         const frequencies = { 1: 261.63, 2: 293.66, 3: 329.63, 4: 349.23, 5: 392.00, 6: 440.00, 7: 493.88 };
         let audioCtx = null, timerInterval = null, secretMelody = [], finalTimeString = "00:00";
-        let isPlaying = false, isPaused = false, currentNoteIndex = 0, melodyTimeoutId = null, generatedDurations = [];
+        let isPlaying = false, currentNoteIndex = 0, melodyTimeoutId = null;
 
         function initAudio() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
         function playTrumpetTone(duckNumber, duration = 0.6) {
@@ -337,18 +335,16 @@
         }
         function playTriumphSound() { initAudio(); const now = audioCtx.currentTime; [261.63, 329.63, 392.00, 523.25].forEach((f, i) => { const o = audioCtx.createOscillator(); o.type='triangle'; o.frequency.value=f; o.connect(audioCtx.destination); o.start(now + i*0.1); o.stop(now + i*0.1 + 0.3); }); }
         function playFailureSound() { initAudio(); const now = audioCtx.currentTime; [220.00, 196.00, 174.61, 146.83].forEach((f, i) => { const o = audioCtx.createOscillator(); o.type='sawtooth'; o.frequency.value=f; o.connect(audioCtx.destination); o.start(now + i*0.2); o.stop(now + i*0.2 + 0.2); }); }
-        function playDuckSound(n) { if (isPlaying && !isPaused) togglePlayPause(); playTrumpetTone(n, 0.5); }
+        function playDuckSound(n) { stopMelody(); playTrumpetTone(n, 0.5); }
         window.onload = function() { buildInputFields(); if (sessionStorage.getItem('game_active') === 'true') { document.getElementById('username').value = sessionStorage.getItem('game_username'); showGameLayout(); startTimer(); generateNewMelody(); } };
         function startGame() { const n = document.getElementById('username').value.trim(); if (!n) return alert("Wpisz imię!"); sessionStorage.setItem('game_start_time', Date.now()); sessionStorage.setItem('game_active', 'true'); sessionStorage.setItem('game_username', n); showGameLayout(); startTimer(); generateNewMelody(); }
         function showGameLayout() { document.getElementById('auth-panel').style.display = 'none'; document.getElementById('status-bar').style.display = 'flex'; document.getElementById('game-container').style.display = 'block'; document.getElementById('display-identity').innerText = "Gracz: " + sessionStorage.getItem('game_username'); }
         function startTimer() { if(timerInterval) clearInterval(timerInterval); const startTime = parseInt(sessionStorage.getItem('game_start_time')); timerInterval = setInterval(() => { const totalSeconds = Math.floor((Date.now() - startTime) / 1000); finalTimeString = `${Math.floor(totalSeconds/60).toString().padStart(2,'0')}:${(totalSeconds%60).toString().padStart(2,'0')}`; document.getElementById('display-timer').innerText = `Czas: ${finalTimeString}`; }, 1000); }
         function buildInputFields() { const c = document.getElementById('inputs-container'); c.innerHTML = ''; for (let i = 0; i < 9; i++) { const input = document.createElement('input'); input.type = 'text'; input.className = 'note-input'; input.maxLength = 1; input.oninput = function() { this.value = this.value.replace(/[^1-7]/g, ''); if (this.value.length === 1 && i < 8) c.children[i + 1].focus(); }; c.appendChild(input); } }
-        function generateNewMelody() { secretMelody = []; generatedDurations = []; for (let i = 0; i < 9; i++) { secretMelody.push(Math.floor(Math.random() * 7) + 1); generatedDurations.push(0.6); } currentNoteIndex = 0; resetInterfaceToPlay(); }
-        function togglePlayPause() { initAudio(); if (!isPlaying) { isPlaying = true; isPaused = false; updatePlayPauseIcons(true); playNextNote(); } else if (!isPaused) { isPaused = true; updatePlayPauseIcons(false); clearTimeout(melodyTimeoutId); } else { isPaused = false; updatePlayPauseIcons(true); playNextNote(); } }
-        function playNextNote() { if (isPaused || !isPlaying) return; if (currentNoteIndex >= secretMelody.length) { stopMelody(); return; } playTrumpetTone(secretMelody[currentNoteIndex], generatedDurations[currentNoteIndex]); currentNoteIndex++; melodyTimeoutId = setTimeout(playNextNote, 900); }
-        function stopMelody() { clearTimeout(melodyTimeoutId); isPlaying = false; isPaused = false; currentNoteIndex = 0; resetInterfaceToPlay(); }
-        function updatePlayPauseIcons(p) { document.getElementById('icon-play').style.display = p ? 'none' : 'block'; document.getElementById('icon-pause').style.display = p ? 'block' : 'none'; }
-        function resetInterfaceToPlay() { updatePlayPauseIcons(false); }
+        function generateNewMelody() { secretMelody = []; for (let i = 0; i < 9; i++) { secretMelody.push(Math.floor(Math.random() * 7) + 1); } stopMelody(); }
+        function tryPlayMelody() { if (isPlaying) return; isPlaying = true; currentNoteIndex = 0; playNextNote(); }
+        function playNextNote() { if (!isPlaying) return; if (currentNoteIndex >= secretMelody.length) { isPlaying = false; return; } playTrumpetTone(secretMelody[currentNoteIndex], 0.6); currentNoteIndex++; melodyTimeoutId = setTimeout(playNextNote, 900); }
+        function stopMelody() { clearTimeout(melodyTimeoutId); isPlaying = false; currentNoteIndex = 0; }
         function checkAnswer() { const ins = document.querySelectorAll('.note-input'); let ans = []; for (let i of ins) { if (!i.value) return alert("Wypełnij wszystko!"); ans.push(parseInt(i.value)); } if (ans.every((v, i) => v === secretMelody[i])) { clearInterval(timerInterval); stopMelody(); playTriumphSound(); document.getElementById('success-summary').innerHTML = `Gracz: ${sessionStorage.getItem('game_username')}<br>Czas: ${finalTimeString}`; document.getElementById('success-modal').style.display = 'flex'; } else { stopMelody(); playFailureSound(); document.getElementById('error-modal').style.display = 'flex'; } }
         function closeErrorModalAndRestart() { document.getElementById('error-modal').style.display = 'none'; document.querySelectorAll('.note-input').forEach(i => i.value = ""); generateNewMelody(); }
     </script>
