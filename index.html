@@ -266,11 +266,11 @@
         .modal-error { border: 5px solid var(--pink-accent); }
         .summary-info { background-color: var(--blue-bg); border-radius: 10px; padding: 12px; margin: 15px 0; font-weight: bold; color: var(--blue-dark); text-align: left; }
 
-        /* Zmiany dla widoku mobilnego (smartfony) */
+        /* WIDOK MOBILNY */
         @media (max-width: 768px) {
             body {
                 justify-content: flex-start;
-                padding: 10px 5px;
+                padding: 8px 5px;
                 overflow: hidden;
             }
             #auth-panel {
@@ -282,78 +282,114 @@
             input[type="text"] { padding: 12px; font-size: 16px; }
             
             #game-container {
-                height: calc(100% - 40px);
+                height: calc(100% - 30px);
                 flex-grow: 1;
                 justify-content: space-between;
             }
 
-            /* Kontener na kaczki: pełny pion, bez scrolla, ciasno ułożone */
+            /* Zachowany oryginalny, pionowy układ kaczek pod sobą */
             .ducks-wrapper {
-                flex-direction: column;
+                flex-direction: column !important;
+                display: flex !important;
                 justify-content: center;
                 align-items: center;
-                gap: 4px; /* Minimalny odstęp między kaczuszkami */
+                gap: 5px;
                 flex-grow: 1;
                 margin-bottom: 5px;
                 padding: 0;
-                overflow: hidden; /* Blokada scrollowania */
+                overflow: hidden;
                 width: 100%;
+                transition: none;
             }
 
-            /* Karta kaczki: ustawienie horyzontalne (obrazek + głośnik obok siebie) */
+            /* Zwiększone i wyeksponowane karty kaczek */
             .duck-card {
                 flex-direction: row;
                 justify-content: center;
                 align-items: center;
-                gap: 10px;
-                padding: 4px 15px;
+                gap: 14px;
+                padding: 6px 20px;
                 background: rgba(255, 255, 255, 0.6);
-                border-radius: 10px;
-                border: 1px dashed var(--pink-accent);
-                width: 140px; /* Dopasowana szerokość dla równego wyrównania w pionie */
+                border-radius: 12px;
+                border: 2px dashed var(--pink-accent);
+                width: 160px;
                 height: auto;
             }
 
-            /* Pomniejszenie grafik, by zmieściło się całe 7 sztuk */
+            /* Duże, wyraźne grafiki PNG */
             .duck-img {
-                width: 35px;
-                height: 35px;
+                width: 48px;
+                height: 48px;
             }
 
-            /* Dopasowanie ikonki głośnika */
+            /* Większe przyciski głośników przy kaczce */
             .speaker-btn {
-                width: 28px;
-                height: 28px;
+                display: flex !important;
+                width: 36px;
+                height: 36px;
             }
             .speaker-btn svg {
-                width: 14px;
-                height: 14px;
+                width: 18px;
+                height: 18px;
             }
 
-            /* Reszta interfejsu dopasowana do mniejszych ekranów */
+            /* Małe, zgrabne pole tekstowe, które bez problemu mieści cyfry i nie zabiera miejsca w pionie */
             .note-input { 
-                width: 30px !important; 
-                height: 30px !important; 
-                font-size: 16px; 
-                line-height: 30px; 
+                width: 24px !important; 
+                height: 24px !important; 
+                font-size: 14px; 
+                line-height: 24px; 
                 border: 2px solid var(--blue-accent); 
-                border-radius: 8px; 
+                border-radius: 6px; 
             }
+            
             .answer-section { 
                 padding: 10px; 
                 max-width: 100%; 
                 margin-bottom: 5px;
+                transition: all 0.2s ease;
+                border-radius: 14px;
+                border-width: 2px;
             }
             .answer-section h3 {
                 margin-bottom: 6px;
-                font-size: 14px;
+                font-size: 13px;
             }
-            .inputs-container { gap: 3px; margin-bottom: 10px; }
-            .btn-check { padding: 8px 15px; font-size: 14px; }
+            .inputs-container { gap: 4px; margin-bottom: 8px; }
+            .btn-check { padding: 8px 20px; font-size: 14px; max-width: 180px; }
             .controls-wrapper { margin-bottom: 5px; padding: 6px 15px; }
             .control-btn { width: 38px; height: 38px; }
             .control-btn svg { width: 16px; height: 16px; }
             #status-bar { padding: 6px 15px; font-size: 14px; margin-bottom: 5px; }
+
+            /* Pozycjonowanie sekcji wpisywania od razu nad klawiaturą, kaczki zostają na swoim miejscu */
+            body.keyboard-active #game-container {
+                justify-content: flex-start;
+            }
+            body.keyboard-active #status-bar,
+            body.keyboard-active .controls-wrapper,
+            body.keyboard-active .answer-section h3 {
+                display: none !important; /* Ukrywa nagłówki i sterowanie przy aktywnej klawiaturze, by zmieścić resztę bez scrolla */
+            }
+            body.keyboard-active .answer-section {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                border-radius: 0;
+                border-left: none;
+                border-right: none;
+                border-bottom: none;
+                background: rgba(255, 255, 255, 0.98);
+                box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+                padding: 6px 0;
+                z-index: 99;
+                margin-bottom: 0;
+            }
+            body.keyboard-active .btn-check {
+                padding: 4px 12px;
+                font-size: 12px;
+            }
         }
     </style>
 </head>
@@ -443,7 +479,39 @@
         function startGame() { const n = document.getElementById('username').value.trim(); if (!n) return alert("Wpisz imię!"); sessionStorage.setItem('game_start_time', Date.now()); sessionStorage.setItem('game_active', 'true'); sessionStorage.setItem('game_username', n); showGameLayout(); startTimer(); generateNewMelody(); }
         function showGameLayout() { document.getElementById('auth-panel').style.display = 'none'; document.getElementById('status-bar').style.setProperty('display', 'flex', 'important'); document.getElementById('game-container').style.setProperty('display', 'flex', 'important'); document.getElementById('display-identity').innerText = "Gracz: " + sessionStorage.getItem('game_username'); }
         function startTimer() { if(timerInterval) clearInterval(timerInterval); const startTime = parseInt(sessionStorage.getItem('game_start_time')); timerInterval = setInterval(() => { const totalSeconds = Math.floor((Date.now() - startTime) / 1000); finalTimeString = `${Math.floor(totalSeconds/60).toString().padStart(2,'0')}:${(totalSeconds%60).toString().padStart(2,'0')}`; document.getElementById('display-timer').innerText = `Czas: ${finalTimeString}`; }, 1000); }
-        function buildInputFields() { const c = document.getElementById('inputs-container'); c.innerHTML = ''; for (let i = 0; i < 9; i++) { const input = document.createElement('input'); input.type = 'text'; input.pattern = '[1-7]*'; input.inputMode = 'numeric'; input.className = 'note-input'; input.maxLength = 1; input.oninput = function() { this.value = this.value.replace(/[^1-7]/g, ''); if (this.value.length === 1 && i < 8) c.children[i + 1].focus(); }; c.appendChild(input); } }
+        
+        function buildInputFields() { 
+            const c = document.getElementById('inputs-container'); 
+            c.innerHTML = ''; 
+            for (let i = 0; i < 9; i++) { 
+                const input = document.createElement('input'); 
+                input.type = 'text'; 
+                input.pattern = '[1-7]*'; 
+                input.inputMode = 'numeric'; 
+                input.className = 'note-input'; 
+                input.maxLength = 1; 
+                
+                // Obsługa wysuwania widoku przy klawiaturze
+                input.addEventListener('focus', () => {
+                    document.body.classList.add('keyboard-active');
+                });
+                input.addEventListener('blur', () => {
+                    // Timeout chroni przed miganiem przy przeskakiwaniu z inputa do inputa
+                    setTimeout(() => {
+                        if (document.activeElement.className !== 'note-input') {
+                            document.body.classList.remove('keyboard-active');
+                        }
+                    }, 50);
+                });
+
+                input.oninput = function() { 
+                    this.value = this.value.replace(/[^1-7]/g, ''); 
+                    if (this.value.length === 1 && i < 8) c.children[i + 1].focus(); 
+                }; 
+                c.appendChild(input); 
+            } 
+        }
+
         function generateNewMelody() { 
             secretMelody = []; 
             while (true) {
